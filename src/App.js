@@ -1,13 +1,32 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
+import TodoForm from "./TodoForm";
+import TodoList from "./TodoList";
+import useTodoState from "./useTodoState";
 
-import "./App.css";
+const App = () => {
+  const { todos, addTodo, deleteTodo } = useTodoState([]);
 
-function App() {
   return (
     <div className="App">
-      <header className="App-header">Hello Mosaic Wellness</header>
+      <h1>Action Items</h1>
+      <Typography component="h2" variant="h3">
+        Todos
+      </Typography>
+
+      <TodoForm
+        saveTodo={(todoText) => {
+          const trimmedText = todoText.trim();
+
+          if (trimmedText.length > 0) {
+            addTodo(trimmedText);
+          }
+        }}
+      />
+
+      <TodoList todos={todos} deleteTodo={deleteTodo} />
     </div>
   );
-}
+};
 
 export default App;
